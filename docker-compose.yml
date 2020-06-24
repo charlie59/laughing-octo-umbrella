@@ -1,0 +1,12 @@
+# See https://docs.docker.com/compose/compose-file/
+version: '3.5'
+services:
+  app:
+    build: .
+  sut:
+    image: alpine:latest
+    depends_on:
+      - app
+    ports:
+      - "80:8080"
+    restart: always

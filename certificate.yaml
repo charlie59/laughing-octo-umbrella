@@ -1,0 +1,28 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: k8-etypetest-com
+spec:
+  commonName: k8.etypetest.com
+  # Secret names are always required.
+  secretName: k8-etypetest-com
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  organization:
+    - etypetest
+  isCA: false
+  keySize: 2048
+  keyAlgorithm: rsa
+  keyEncoding: pkcs1
+  usages:
+    - server auth
+    - client auth
+  # At least one of a DNS Name, URI, or IP address is required.
+  dnsNames:
+    - k8.etypetest.com
+  issuerRef:
+    name: letsencrypt-staging
+    # We can reference ClusterIssuers by changing the kind here.
+    # The default value is Issuer (i.e. a locally namespaced Issuer)
+    kind: ClusterIssuer
+
