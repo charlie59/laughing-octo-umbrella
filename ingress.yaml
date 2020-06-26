@@ -10,6 +10,7 @@ metadata:
     # See https://cloud.google.com/kubernetes-engine/docs/tutorials/configuring-domain-name-static-ip
     kubernetes.io/ingress.global-static-ip-name: cluster-ip
     # See https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs to add a Google certificate
+    networking.gke.io/managed-certificates: certificate-one
   labels:
     # Timestamp used in order to force reload of the secret
     # last_updated: "1494099933"
