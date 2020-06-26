@@ -1,18 +1,27 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: nginx-ingress
+  name: nginx-ingress-one
   # Annotations create a certificate - no need for certificate.yaml
   annotations:
-    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/ingress.class: nginx # Gives 404 error
     # cert-manager.io/issuer: letsencrypt-staging
     # cert-manager.io/issuer: letsencrypt-prod
+    # See https://cloud.google.com/kubernetes-engine/docs/tutorials/configuring-domain-name-static-ip
     kubernetes.io/ingress.global-static-ip-name: cluster-ip
+    # See https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs to add a Google certificate
   labels:
     # Timestamp used in order to force reload of the secret
     # last_updated: "1494099933"
     app: nginx
 spec:
-  backend:
-    serviceName: nginx-php-service
-    servicePort: 80
+  rules:
+    - host: k8.etypetest.com
+      http:
+        paths:
+          - backend:
+              serviceName: nginx-php-service
+              servicePort: 80
+  # backend:
+  #  serviceName: nginx-php-service
+  #  servicePort: 80

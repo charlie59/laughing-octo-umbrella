@@ -3,7 +3,9 @@ kind: Service
 metadata:
   name: nginx-php-service
   annotations:
+    # See https://cloud.google.com/kubernetes-engine/docs/tutorials/configuring-domain-name-static-ip
     cloud.google.com/neg: '{"ingress": true}' # Creates a NEG after an Ingress is created
+    cloud.google.com/app-protocols: '{"https-port":"HTTPS","http-port":"HTTP"}'
   labels:
     app: nginx
 spec:
@@ -11,6 +13,12 @@ spec:
   selector:
     app: nginx
   ports:
-  - port: 80
+  - name: http-port
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+    # I think this is needed for https
+  - name: https-port
+    port: 443
     targetPort: 8080
     protocol: TCP
