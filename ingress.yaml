@@ -17,11 +17,13 @@ metadata:
 spec:
   rules:
     - host: k8.etypetest.com
-      http:
+      http: &http_rules
         paths:
           - backend:
               serviceName: nginx-php-service
               servicePort: 80
+    # - host: tld1.maindomain.de
+    #   http: *http_rules
   # backend:
   #  serviceName: nginx-php-service
   #  servicePort: 80
