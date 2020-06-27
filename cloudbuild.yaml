@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/nginx-php', '.' ]
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/nginx-php:beta-01', '.' ]
 images:
 - 'gcr.io/$PROJECT_ID/nginx-php'

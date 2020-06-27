@@ -14,17 +14,18 @@ spec:
       labels:
         app: nginx
     spec:
-      volumes:
-        - name: pvc-storage
-          persistentVolumeClaim:
-            claimName: pvc-claim
       containers:
       - name: nginx-php
-        # Image built from this docker-compose.yml and pushed to Google repo
-        image: gcr.io/modern-photon-112115/nginx-php:latest
+        # Image built from cloudbuild.yaml
+        image: gcr.io/modern-photon-112115/nginx-php:beta-01
         ports:
         - containerPort: 8080
           protocol: TCP
         volumeMounts:
           - mountPath: "/mnt/data"
-            name: pvc-storage
+            name: www
+      volumes:
+        - name: www
+          persistentVolumeClaim:
+            claimName: podpvc
+            readOnly: false
